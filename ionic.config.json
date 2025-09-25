@@ -1,0 +1,7 @@
+{
+  "name": "presensi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
