@@ -1,166 +1,128 @@
-/* Background full di ion-content (halaman Login) */
-.login-screen {
+/* =========================
+   TWEAK CEPAT (boleh ubah angka di sini)
+   ========================= */
+$logo-size:            200px;  // ukuran logo
+$stack-top:            clamp(4.5rem, 14vh, 7rem); // jarak dari atas supaya card “sedikit turun”
+$card-radius:          22px;   // radius card
+$card-glass:           rgba(255,255,255,0.78); // transparansi card
+$title-color:          #1e6e3d; // warna judul
+$btn-green:            #0c5a2a; // warna tombol
+$eye-color:            #6e6e6e; // warna ikon mata (abu-abu seperti mockup)
+/* NOTE: kalau mau PUTIH → ganti ke #ffffff */
+
+.login-content {
   --background: none;
-  background: url('/assets/login/bg.png') center center / cover no-repeat fixed;
-  min-height: 100%;
-  width: 100%;
-  position: relative;
-}
 
-/* Hero: hanya untuk posisi logo */
-.hero {
-  position: relative;
-  height: 44vh;
-  min-height: 260px;
-  display: block;
-}
-.hero-bg {
-  display: none;
-}
-.hero-logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(196px, 38%, 180px);
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
-}
+  /* BG: gambar + lapisan gradient lembut agar mirip mockup */
+  .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(130% 120% at 50% 0%, rgba(64,180,88,0.22), rgba(64,180,88,0) 60%),
+      linear-gradient(to bottom, rgba(18,77,40,0.18), rgba(18,77,40,0.10)),
+      url('/assets/images/login-bg.png') center/cover no-repeat fixed;
+    z-index: 0;
+  }
 
-/* Card putih menumpuk di bawah hero */
-.auth-card {
-  position: relative;
-  top: -22px;
-  margin: 0 14px 24px;
-  backdrop-filter: blur(2px);
-  border-radius: 12px;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
-}
-
-/* Style judul, input, tombol */
-.title {
-  text-align: center;
-  color: #15803d;
-  font-weight: 800;
-}
-.rounded {
-  --border-radius: 10px;
-  border-radius: 10px;
-  --padding-start: 12px;
-  --inner-padding-end: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-.btn-login {
-  --background: #0b4f2c;
-  --background-activated: #0a4527;
-  --border-radius: 10px;
-  height: 48px;
-  font-weight: 800;
-}
-.divider {
-  height: 1px;
-  background: #ddd;
-  margin: 18px 0 8px;
-}
-.muted {
-  text-align: center;
-  color: #666;
-  margin: 0 0 12px;
-}
-
-/* Ikon sosial */
-.social-row {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-.social-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  object-fit: contain;
-  padding: 6px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-  background: #fff;
-}
-.social-btn.x {
-  background: #000;
-}
-.social-btn.fb {
-  background: #1877f2;
-}
-
-/* Pastikan input native tampil tema terang dan tetap putih */
-.login-screen,
-.auth-card,
-.auth-card form {
-  color-scheme: light; /* Cegah auto-dark bawaan browser pada kontrol native */
-}
-
-.auth-card ion-item {
-  --background: #fff; /* Pertahankan latar belakang ion-item tetap putih */
-  --color: #000;      /* Warna teks di dalam ion-item */
-}
-
-.auth-card ion-item input {
-  width: 100%;
-  background-color: transparent; /* Tampilkan putih dari ion-item/card */
-  color: #000;
-  caret-color: #000;
-  font: inherit;
-  padding: 10px 0;
-  border: 0;
-  outline: none;
-}
-
-.auth-card ion-item input::placeholder {
-  color: #777;
-}
-
-/* Samakan latar autofill (gelap/kuning) menjadi putih */
-.auth-card ion-item input:-webkit-autofill,
-.auth-card ion-item input:-webkit-autofill:hover,
-.auth-card ion-item input:-webkit-autofill:focus,
-.auth-card ion-item input:-webkit-autofill:active {
-  -webkit-text-fill-color: #000;
-  box-shadow: 0 0 0px 1000px #fff inset;
-  transition: background-color 9999s ease-in-out 0s;
-}
-/* Tombol toggle password: minimalkan padding agar ikon rata kanan rapi */
-.auth-card ion-item .toggle-password {
-  --padding-start: 0;
-  --padding-end: 0;
-  --color: #808080;
-  min-width: 40px;
-}
-
-.auth-card ion-item .toggle-password ion-icon {
-  font-size: 1.2rem;
-}
-/* BEGIN change: posisi ikon mata sejajar dengan placeholder */
-.auth-card ion-item.password-item .input-wrapper {
-  position: relative;
-  width: 100%;
-  display: block;
-}
-
-/* Tambah ruang di kanan agar teks tidak ketumpuk ikon */
-.auth-card ion-item.password-item .input-wrapper input {
-  padding-right: 44px;
-}
-
-/* Posisikan tombol mata tepat di kanan, sejajar secara vertikal dengan baris input */
-.auth-card ion-item.password-item .toggle-password.overlay {
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  --padding-start: 6px;
-  --padding-end: 6px;
-  height: 36px;
+  /* STACK: peletakan logo + card */
+  .stack {
+    position: relative;
   z-index: 1;
+  width: min(420px, 92vw);
+  margin: $stack-top auto 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* opsional: tambah jarak antar elemen (logo ↔ card) */
+  gap: 1.6rem;
+  }
+
+  .logo {
+    width: $logo-size;
+    height: auto;
+   /* Jarak logo ↔ card (responsif) */
+  margin-bottom: clamp(0.8rem, 2.8vh, 1.8rem);
+
+  filter:
+    drop-shadow(0 10px 26px rgba(0,0,0,0.30))
+    drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+
+  }
+
+  /* CARD FROSTED + bayangan tebal seperti mockup */
+  .glass {
+    width: 100%;
+    border-radius: $card-radius;
+    background: $card-glass;
+    backdrop-filter: saturate(160%) blur(8px);
+    -webkit-backdrop-filter: saturate(160%) blur(8px);
+    box-shadow:
+      0 22px 46px rgba(0,0,0,0.28),
+      0 3px 8px rgba(0,0,0,0.18);
+  }
+
+  ion-card-content {
+    padding: 16px 16px 22px;
+  }
+
+  .title {
+    margin: 10px 0 12px;
+    text-align: center;
+    color: $title-color;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+
+  /* FIELD: tampilan input seperti mockup */
+/* SEMENTARA – hanya untuk uji di DevTools */
+.field ion-input::part(native) {
+  color: #222;
+  -webkit-text-fill-color: #222 !important;
+  caret-color: #222;
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+          box-shadow: 0 0 0 1000px #fff inset !important;
+  transition: background-color 9999s ease-out 0s;
+}
+.field ion-input { color-scheme: light; }
+
+    /* tombol eye */
+    ion-button.eye-btn {
+      --color: #{$eye-color};
+      --padding-start: 6px;
+      --padding-end: 6px;
+      --ripple-color: transparent;
+      min-height: 36px;
+    }
+    ion-button.eye-btn ion-icon { color: $eye-color; }
+  }
+
+  /* BUTTON: hijau gelap, shadow tebal, radius besar */
+  .login-btn {
+    --border-radius: 14px;
+    --background: #{$btn-green};
+    --background-activated: #094a22;
+    --background-focused: #0c5a2a;
+    --box-shadow:
+      0 14px 28px rgba(12,90,42,0.38),
+      0 3px 10px rgba(12,90,42,0.25);
+    font-weight: 800;
+    letter-spacing: .4px;
+    margin-top: 6px;
+  }
+
+
+@media (max-width: 360px) {
+  .login-content {
+    .stack { margin-top: clamp(3.8rem, 12vh, 6rem); }
+    .logo  { width: 132px; }
+  }
 }
 
-.auth-card ion-item.password-item .toggle-password.overlay ion-icon {
-  font-size: 1.2rem;
+.login-btn.button-disabled {
+  --background: #9dc993;     /* hijau pudar saat nonaktif */
+  --box-shadow: none;
+//   opacity: .9;
+  cursor: not-allowed;
 }
-/* END change */
+.hint { margin: 4px 4px 8px; font-size: 12px; }
